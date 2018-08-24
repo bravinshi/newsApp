@@ -1,7 +1,5 @@
 package com.bravin.shi.news.entity;
 
-import com.bravin.shi.news.enums.UserSexEnum;
-
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -27,7 +25,7 @@ public class UserEntity implements Serializable {
     private String cover;
     private String mainColor;
     private int state;
-    private UserSexEnum sex;
+    private int sex;
     private Date birthday;
 
     public Date getBirthday() {
@@ -38,11 +36,11 @@ public class UserEntity implements Serializable {
         this.birthday = birthday;
     }
 
-    public UserSexEnum getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(UserSexEnum sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
