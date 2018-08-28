@@ -14,4 +14,24 @@ public class ResponseUtil {
 
         return responseEntity;
     }
+
+    public static ResponseEntity success(){
+        ResponseEntity responseEntity = new ResponseEntity();
+        responseEntity.setCode(CodeConstant.CODE_SUCCESS);
+        responseEntity.setMessage(MessageConstant.MSG_SUCCESS);
+
+        return responseEntity;
+    }
+
+    public static ResponseEntity illegalParam(String msg){
+        ResponseEntity responseEntity = new ResponseEntity();
+        responseEntity.setCode(CodeConstant.CODE_ILLEGAL_PARAMETER);
+        if (!StringUtil.isTrimEmpty(msg)){
+            responseEntity.setMessage(msg);
+        } else {
+            responseEntity.setMessage("param is illegal!");
+        }
+
+        return responseEntity;
+    }
 }

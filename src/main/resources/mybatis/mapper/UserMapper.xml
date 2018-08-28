@@ -31,7 +31,7 @@
         id, username, sex, phone_number, email, phone_verified, email_verified, avatar, state
     </sql>
 
-    <select id="listAllUsers" resultMap="BaseResultMap"  >
+    <select id="listAllUsers" resultMap="BaseResultMap" >
         SELECT
         <include refid="Base_Column_List" />
         FROM user
@@ -59,4 +59,11 @@
        		 id =#{id}
     </delete>
 
+    <select id="isRegistered" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT phone_number FROM user WHERE phone_number = #{phoneNumber}
+    </select>
+
+    <select id="registerByPhone">
+        INSERT INTO user (phone_number, phone_verified) VALUES (#{phone}, 1)
+    </select>
 </mapper>

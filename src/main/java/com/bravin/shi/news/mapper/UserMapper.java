@@ -1,6 +1,7 @@
 package com.bravin.shi.news.mapper;
 
 import com.bravin.shi.news.entity.UserEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -40,4 +41,20 @@ public interface UserMapper {
      * @return 用户
      */
     UserEntity getUser(Long id);
+
+    /**
+     * 根据手机号判断用户是否已注册
+     *
+     * @param phoneNumber 手机号
+     * @return 是否注册
+     */
+    String isRegistered(String phoneNumber);
+
+    /**
+     * 使用手机号和验证码注册
+     *
+     * @param phone 手机号
+     * @param verifyCode 验证码
+     */
+    void registerByPhone(@Param("phone") String phone, @Param("code") String verifyCode);
 }
