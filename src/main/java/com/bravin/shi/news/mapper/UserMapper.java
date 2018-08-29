@@ -54,7 +54,6 @@ public interface UserMapper {
      * 使用手机号和验证码注册
      *
      * @param phone 手机号
-     * @param verifyCode 验证码
      */
-    void registerByPhone(@Param("phone") String phone, @Param("code") String verifyCode);
+    void registerByPhone(@Param("phone") String phone);
 }
