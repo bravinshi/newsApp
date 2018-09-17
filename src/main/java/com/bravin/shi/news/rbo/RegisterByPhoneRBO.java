@@ -3,6 +3,7 @@ package com.bravin.shi.news.rbo;
 public class RegisterByPhoneRBO {
     private String phone;
     private String verifyCode;
+    private String password;
 
     public String getPhone() {
         return phone;
@@ -18,5 +19,13 @@ public class RegisterByPhoneRBO {
 
     public void setVerifyCode(String verifyCode) {
         this.verifyCode = verifyCode;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

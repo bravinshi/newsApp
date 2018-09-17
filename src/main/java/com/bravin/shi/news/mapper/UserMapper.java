@@ -51,9 +51,17 @@ public interface UserMapper {
     String isRegistered(String phoneNumber);
 
     /**
-     * 使用手机号和验证码注册
+     * 使用手机号注册
      *
      * @param phone 手机号
      */
     void registerByPhone(@Param("phone") String phone);
+
+    /**
+     * 使用手机号和密码注册
+     *
+     * @param phone 手机号
+     */
+    void registerByPhoneAndPassword(@Param("phone") String phone,
+                                    @Param("password") String password);
 }

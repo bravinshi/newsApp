@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.bravin.shi.news.entity.UserEntity" >
         <result column="id" property="id" jdbcType="BIGINT" />
         <result column="username" property="username" jdbcType="CHAR" />
-        <result column="passWord" property="passWord" jdbcType="CHAR" />
+        <result column="password" property="password" jdbcType="CHAR" />
         <result column="sex" property="sex" jdbcType="TINYINT"/>
         <result column="phone_number" property="phoneNumber" jdbcType="CHAR" />
         <result column="birthday" property="birthday" jdbcType="DATE" />
@@ -65,5 +65,9 @@
 
     <select id="registerByPhone">
         INSERT INTO user (phone_number, phone_verified) VALUES (#{phone}, 1)
+    </select>
+
+    <select id="registerByPhoneAndPassword">
+        INSERT INTO user (phone_number, phone_verified, password) VALUES (#{phone}, 1, #{password})
     </select>
 </mapper>
