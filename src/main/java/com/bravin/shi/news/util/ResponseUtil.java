@@ -63,4 +63,16 @@ public class ResponseUtil {
         responseEntity.setMessage("phone and verify code do not match");
         return responseEntity;
     }
+
+    /**
+     * 创建一个手机号已注册的reponse
+     *
+     * @return response
+     */
+    public static ResponseEntity phoneRegistered() {
+        ResponseEntity responseEntity = new ResponseEntity();
+        responseEntity.setCode(CodeConstant.CODE_PHONE_REGISTERED);
+        responseEntity.setMessage("phone number has been registered");
+        return responseEntity;
+    }
 }

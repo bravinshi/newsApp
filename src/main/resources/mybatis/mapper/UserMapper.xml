@@ -44,7 +44,14 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="com.bravin.shi.news.entity.UserEntity" >
+    <select id="getUserByPhone" parameterType="java.lang.String" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+        WHERE phone_number = #{phone}
+    </select>
+
+    <insert id="insert" parameterType="com.bravin.shi.news.entity.UserEntity">
        INSERT INTO
        		user
        		(username,phone_number,sex)
@@ -63,11 +70,14 @@
         SELECT phone_number FROM user WHERE phone_number = #{phoneNumber}
     </select>
 
-    <select id="registerByPhone">
+    <insert id="registerByPhone">
         INSERT INTO user (phone_number, phone_verified) VALUES (#{phone}, 1)
-    </select>
+    </insert>
 
-    <select id="registerByPhoneAndPassword">
+    <insert id="registerByPhoneAndPassword">
         INSERT INTO user (phone_number, phone_verified, password) VALUES (#{phone}, 1, #{password})
-    </select>
+        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+            SELECT id FROM user WHERE phone_number = #{phone}
+        </selectKey>
+    </insert>
 </mapper>

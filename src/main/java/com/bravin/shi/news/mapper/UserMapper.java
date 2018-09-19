@@ -43,6 +43,14 @@ public interface UserMapper {
     UserEntity getUser(Long id);
 
     /**
+     * 获取用户
+     *
+     * @param phone 手机号
+     * @return 用户
+     */
+    UserEntity getUserByPhone(String phone);
+
+    /**
      * 根据手机号判断用户是否已注册
      *
      * @param phoneNumber 手机号
@@ -62,6 +70,6 @@ public interface UserMapper {
      *
      * @param phone 手机号
      */
-    void registerByPhoneAndPassword(@Param("phone") String phone,
+    int registerByPhoneAndPassword(@Param("phone") String phone,
                                     @Param("password") String password);
 }

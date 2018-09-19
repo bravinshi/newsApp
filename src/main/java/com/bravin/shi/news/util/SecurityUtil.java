@@ -4,6 +4,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SecurityUtil {
+    /**
+     * 对字符串进行md5加密
+     *
+     * @param plainText 明文
+     * @return 密文
+     */
     public static String getMD5(String plainText) {
         String re_md5 = "";
         try {
@@ -31,8 +37,19 @@ public class SecurityUtil {
         return re_md5;
     }
 
+    public static String getMD5(String plainText, String salt) {
+        return getMD5(plainText + salt);
+    }
+
+    /**
+     * 对字符串多次md5加密
+     *
+     * @param plainText 明文
+     * @param repeatTime 加密次数
+     * @return 密文
+     */
     public static String getMD5Repeatedly(String plainText, int repeatTime) {
-        if (repeatTime <= 0) {
+        if (repeatTime <= 0 || plainText == null || plainText.length() == 0) {
             throw new IllegalArgumentException();
         }
         String cipher = plainText;

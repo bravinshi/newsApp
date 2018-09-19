@@ -90,12 +90,18 @@ public class UserController {
         if (!StringUtil.isVerifyCode(rbo.getVerifyCode())) {// 校验验证码
             return ResponseUtil.illegalParam("verify code param is illegal!");
         }
+        // 检测手机号是否已被注册
+        UserEntity user = userMapper.getUserByPhone(rbo.getPhone());
+        if (user != null) {
+            // 抛出用户已注册错误
+            return ResponseUtil.phoneRegistered();
+        }
         // 验证手机和验证码的一致性
         if (BusinessUtil.isPhoneVerifyCodeMatch(rbo.getPhone(), rbo.getVerifyCode())) {
             // 加密密码，获取密码的两次md5值作为存储的密码
-            userMapper.registerByPhoneAndPassword(rbo.getPhone(),
+            int userId = userMapper.registerByPhoneAndPassword(rbo.getPhone(),
                     SecurityUtil.getMD5Repeatedly(rbo.getPassword(), 2));
-            return ResponseUtil.success();
+            return ResponseUtil.success(userId);
         } else {
             return ResponseUtil.phoneVerifyCodeNotMatch();
         }
