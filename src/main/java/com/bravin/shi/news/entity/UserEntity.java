@@ -27,6 +27,15 @@ public class UserEntity implements Serializable {
     private int state;
     private int sex;
     private Date birthday;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Date getBirthday() {
         return birthday;

@@ -14,7 +14,7 @@ public interface UserMapper {
     void insert(UserEntity user);
 
     /**
-     * 跟新用户
+     * 更新用户
      *
      * @param user 新的用户信息
      */
@@ -68,8 +68,7 @@ public interface UserMapper {
     /**
      * 使用手机号和密码注册
      *
-     * @param phone 手机号
+//     * @param phone 手机号
      */
-    int registerByPhoneAndPassword(@Param("phone") String phone,
-                                    @Param("password") String password);
+    Integer registerByPhoneAndPassword(UserEntity user);
 }

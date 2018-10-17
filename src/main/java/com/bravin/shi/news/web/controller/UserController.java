@@ -2,6 +2,8 @@ package com.bravin.shi.news.web.controller;
 
 import com.bravin.shi.news.entity.ResponseEntity;
 import com.bravin.shi.news.entity.UserEntity;
+import com.bravin.shi.news.entity.to.RegisterTO;
+import com.bravin.shi.news.enumerate.VerifiedState;
 import com.bravin.shi.news.mapper.UserMapper;
 import com.bravin.shi.news.rbo.RegisterByPhoneRBO;
 import com.bravin.shi.news.util.BusinessUtil;
@@ -87,7 +89,7 @@ public class UserController {
             return ResponseUtil.illegalParam("phone param is illegal!");
         }
 
-        if (!StringUtil.isVerifyCode(rbo.getVerifyCode())) {// 校验验证码
+        if (!StringUtil.isVerifyCode(rbo.getVerificationCode())) {// 校验验证码
             return ResponseUtil.illegalParam("verify code param is illegal!");
         }
         // 检测手机号是否已被注册
@@ -97,11 +99,17 @@ public class UserController {
             return ResponseUtil.phoneRegistered();
         }
         // 验证手机和验证码的一致性
-        if (BusinessUtil.isPhoneVerifyCodeMatch(rbo.getPhone(), rbo.getVerifyCode())) {
+        if (BusinessUtil.isPhoneVerifyCodeMatch(rbo.getPhone(), rbo.getVerificationCode())) {
+            user = new UserEntity();
+            user.setPhoneNumber(rbo.getPhone());
             // 加密密码，获取密码的两次md5值作为存储的密码
-            int userId = userMapper.registerByPhoneAndPassword(rbo.getPhone(),
-                    SecurityUtil.getMD5Repeatedly(rbo.getPassword(), 2));
-            return ResponseUtil.success(userId);
+            user.setPassword(SecurityUtil.getMD5Repeatedly(rbo.getPassword(), 2));
+            userMapper.registerByPhoneAndPassword(user);
+            user.setPhoneVerified(VerifiedState.YES.getValue());
+            RegisterTO registerTO = new RegisterTO();
+            registerTO.setSessionToken("abc");
+            registerTO.setUser(user);
+            return ResponseUtil.success(registerTO);
         } else {
             return ResponseUtil.phoneVerifyCodeNotMatch();
         }

@@ -74,10 +74,17 @@
         INSERT INTO user (phone_number, phone_verified) VALUES (#{phone}, 1)
     </insert>
 
-    <insert id="registerByPhoneAndPassword">
-        INSERT INTO user (phone_number, phone_verified, password) VALUES (#{phone}, 1, #{password})
-        <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
-            SELECT id FROM user WHERE phone_number = #{phone}
-        </selectKey>
+    <insert id="registerByPhoneAndPassword" keyProperty="id" useGeneratedKeys="true" parameterType="com.bravin.shi.news.entity.UserEntity">
+        INSERT INTO user (phone_number, phone_verified, password) VALUES (#{phoneNumber}, 1, #{password})
     </insert>
+
+    <update id="updateUser" parameterType="com.bravin.shi.news.entity.UserEntity">
+        UPDATE user 
+        <set>
+            <if test="username != null">username=#{username},</if>
+            <if test="phoneNumber != null">phone_number=#{phoneNumber},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="state != null">state=#{state}</if>
+        </set>
+    </update>
 </mapper>
